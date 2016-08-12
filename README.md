@@ -1,15 +1,13 @@
 # TwilioPhoneVerification
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/twilio_phone_verification`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+twilio_phone_verification is a gem for Ruby on Rails applications which you can use to verify user's phone numbers using twilio.com
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'twilio_phone_verification'
+gem "twilio_phone_verification"
 ```
 
 And then execute:
@@ -20,15 +18,56 @@ Or install it yourself as:
 
     $ gem install twilio_phone_verification
 
+## Configuration
+
+First of all you need to install config files. You can to it using this command:
+
+```bash
+rails g twilio_phone_verification:install [USER_CLASS]
+```
+
+### Example
+
+```bash
+rails g twilio_phone_verification:install User
+```
+
+It wil generate two files `config/initializers/twilio_phone_verification.rb` and `add_phone_to_users` migration. You have to set your secret keys in initializer file or put it in `.env` file.
+
+```ruby
+TwilioPhoneVerification.configure do |config|
+  config.account_sid = ENV.fetch("TWILIO_ACCOUNT_SID") # Paste your twilio account id here
+  config.auth_token = ENV.fetch("TWILIO_AUTH_TOKEN") # Paste your twilio auth token here
+  config.from = ENV.fetch("TWILIO_NUMBER") # Paste your twilio number here
+end
+```
+
+After this you will need to add concern to your `model`
+
+```ruby
+class User < ActiveRecord::Base
+  include TwilioPhoneVerification::Phonable
+end
+```
+
+That's it! 
+
 ## Usage
 
-TODO: Write usage instructions here
+Now you can call some new methods on your model
 
-## Development
+| Method | Description |
+|---|---|
+| **`phone_confirmed?`** | Returns `true` if phone was confirmed, or `false` if it wasn't. |
+| **`send_phone_confirmation`** | Generate and send generated code to user's phone number. Returns `{success: true}` if code was sent, or `false` if it wasn't |
+| **`confirm_phone_by_code(code)`** | Returns `true` and makes user's phone verified if code was correct, otherwise `false`. |
+| **`confirm_phone`** | Confirms user's phone number |
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+If one of these methods returns `false`, you can see error in `.errors` method. (exception: `phone_confirmed`)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Note
+
+Code can be sent only once per 60 seconds, if you call `send_phone_confirmation` few times, it will send only one code.
 
 ## Contributing
 
