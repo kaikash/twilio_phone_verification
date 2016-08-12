@@ -12,12 +12,12 @@ module TwilioPhoneVerification
       end
 
       def copy_migrations
-        if self.class.migration_exists?("db/migrate", "add_phone_to_#{ user_class.underscore }")
-          say_status("skipped", "Migration 'add_phone_to_#{ user_class.underscore }' already exists")
+        if self.class.migration_exists?("db/migrate", "add_phone_to_#{ user_class.pluralize.underscore }")
+          say_status("skipped", "Migration 'add_phone_to_#{ user_class.pluralize.underscore }' already exists")
         else
           migration_template(
             "add_phone_to_users.rb.erb",
-            "db/migrate/add_phone_to_#{ user_class.underscore }.rb"
+            "db/migrate/add_phone_to_#{ user_class.pluralize.underscore }.rb"
           )
         end
       end
