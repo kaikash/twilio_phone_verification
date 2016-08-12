@@ -63,7 +63,7 @@ Now you can call some new methods on your model
 | **`confirm_phone_by_code(code)`** | Returns `true` and makes user's phone verified if code was correct, otherwise `false`. |
 | **`confirm_phone`** | Confirms user's phone number without sending a code |
 
-If one of these methods returns `false`, you can see error in `.errors` method. (exception: `phone_confirmed`)
+If one of these methods returns `false`, you can see error in `.errors` method. (except `phone_confirmed?`)
 
 **Note:** Code can be sent only once per 60 seconds, if you call `send_phone_confirmation` few times, it will send only one code.
 
