@@ -22,7 +22,7 @@ module TwilioPhoneVerification::Phonable
     end
     if !phone_confirmation_sent_at || Time.now - phone_confirmation_sent_at > phone_confirmation_delay
       generate_phone_confirmation_token
-      twilio_res = TwilioService.send_message(phone_confirmation_message, phone)
+      twilio_res = TwilioPhoneVerification::TwilioService.send_message(phone_confirmation_message, phone)
       unless twilio_res[:success]
         errors.add(:phone, "Error occured, while sending code. Please try again later.")
         return false
