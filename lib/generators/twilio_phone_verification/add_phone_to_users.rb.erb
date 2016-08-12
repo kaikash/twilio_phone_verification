@@ -1,0 +1,16 @@
+class AddPhoneTo<%= user_class.pluralize %> < ActiveRecord::Migration[5.0]
+  def self.up
+    add_column :<%= user_class.pluralize.underscore %>, :phone, :string
+    add_column :<%= user_class.pluralize.underscore %>, :phone_confirmation_token, :string
+    add_column :<%= user_class.pluralize.underscore %>, :phone_confirmed_at, :datetime
+    add_column :<%= user_class.pluralize.underscore %>, :phone_confirmation_sent_at, :datetime
+    add_index :<%= user_class.pluralize.underscore %>, :phone, unique: true
+  end
+
+  def self.down
+    remove_column :<%= user_class.pluralize.underscore %>, :phone
+    remove_column :<%= user_class.pluralize.underscore %>, :phone_confirmation_token
+    remove_column :<%= user_class.pluralize.underscore %>, :phone_confirmed_at
+    remove_column :<%= user_class.pluralize.underscore %>, :phone_confirmation_sent_at
+  end
+end
