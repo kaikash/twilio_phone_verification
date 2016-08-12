@@ -19,7 +19,7 @@ module TwilioPhoneVerification
     end
 
     def self.number
-      ENV.fetch("TWILIO_NUMBER")
+      TwilioPhoneVerification.configuration.from
     end
   end
 end

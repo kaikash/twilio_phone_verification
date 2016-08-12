@@ -3,6 +3,8 @@ module TwilioPhoneVerification::Phonable
 
   included do
     before_save :change_phone_confirmed_at, if: :phone_changed?
+    phony_normalize :phone
+    validates :phone, phony_plausible: true, presence: true, uniqueness: true
   end
 
   def phone_confirmed?
