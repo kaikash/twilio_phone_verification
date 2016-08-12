@@ -2,8 +2,9 @@ require "rails/generators/base"
 module TwilioPhoneVerification
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      source_root File.expand_path('../templates', __FILE__)
+      include Rails::Generators::Migration
 
+      source_root File.expand_path('../templates', __FILE__)
       argument :user_class, type: :string, default: "User"
 
       def copy_initializer
