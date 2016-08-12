@@ -1,4 +1,4 @@
-module Rails
+module TwilioPhoneVerification
   module Generators
     class ConfigGenerator < Rails::Generators::Base
       source_root(File.expand_path(File.dirname(__FILE__))
