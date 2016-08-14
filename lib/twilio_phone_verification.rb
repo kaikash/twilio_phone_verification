@@ -4,6 +4,7 @@ require "twilio_phone_verification/phonable"
 require "twilio_phone_verification/twilio_service"
 require "twilio_phone_verification/configuration"
 require "twilio-ruby"
+require "phony_rails"
 
 module TwilioPhoneVerification
   def self.configure(&block)
