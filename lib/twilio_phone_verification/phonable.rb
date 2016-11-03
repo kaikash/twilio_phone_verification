@@ -35,7 +35,7 @@ module TwilioPhoneVerification::Phonable
   end
 
   def confirm_phone_by_code(code)
-    if ActiveSupport::SecurityUtils.secure_compare phone_confirmation_token, code
+    if ActiveSupport::SecurityUtils.secure_compare phone_confirmation_token, code.to_s
       return confirm_phone
     else
       errors.add(:code, " is wrong, try again.")
@@ -64,11 +64,10 @@ module TwilioPhoneVerification::Phonable
   end
 
   def get_phone_confirmation_token
-    (0..9).to_a.shuffle[0,6].join
+    (0..9).to_a.sample(6)
   end
 
   def phone_confirmation_message
-    return false unless phone_confirmation_token
     "Hello, #{name}. Your verification code: #{phone_confirmation_token}"
   end
 end

@@ -7,9 +7,9 @@ require "twilio-ruby"
 require "phony_rails"
 
 module TwilioPhoneVerification
-  def self.configure(&block)
-    yield configuration
-    raise "Configuration error" unless configuration.account_sid && configuration.auth_token && configuration.from
+  def self.configure
+    yield configuration if block_given?
+    raise "TwilioPhoneVerification configuration error" unless configuration.account_sid && configuration.auth_token && configuration.from
     Twilio.configure do |config|
       config.account_sid = configuration.account_sid
       config.auth_token = configuration.auth_token
