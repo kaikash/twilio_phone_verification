@@ -46,9 +46,10 @@ After this you will need to add concern to your `model`
 
 ```ruby
 class User < ActiveRecord::Base
-  include TwilioPhoneVerification::Phonable
+  include TwilioPhoneVerification::Phonable # add this line to your model
 
-  # There are defaults values and you can customize them
+  # You can customize defaults
+  # You can just ignore these if you want
   def phone_confirmation_delay
     1.minute # delay between each sms message
   end
