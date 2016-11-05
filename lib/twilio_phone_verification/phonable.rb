@@ -27,7 +27,7 @@ module TwilioPhoneVerification::Phonable
         errors.add(:phone, "Error occured, while sending code. Please try again later.")
         return false
       end
-      twilio_res
+      twilio_res[:success]
     else
       errors.add(:code, "can be sent once per #{phone_confirmation_delay.to_s} seconds.")
       return false

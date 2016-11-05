@@ -73,7 +73,7 @@ Now you can call some new methods on your model
 | Method | Description |
 |---|---|
 | **`phone_confirmed?`** | Returns `true` if phone was confirmed, or `false` if it wasn't. |
-| **`send_phone_confirmation`** | Generate and send generated code to user's phone number. Returns `{success: true}` if code was sent, or `false` if it wasn't |
+| **`send_phone_confirmation`** | Generate and send generated code to user's phone number. Returns `true` if code was sent, or `false` if it wasn't |
 | **`confirm_phone_by_code(code)`** | Returns `true` and makes user's phone verified if code was correct, otherwise `false`. |
 | **`confirm_phone`** | Confirms user's phone number without sending a code |
 
